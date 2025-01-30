@@ -2,4 +2,4 @@
 git clean -df
 git pull
 cd /home/orangepi/duct-interface/interface
-py main.py
+python3 main.py
