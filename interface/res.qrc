@@ -1,0 +1,25 @@
+<RCC>
+  <qresource>
+    <file alias="stop">stop.png</file>
+    <file alias="play">play.png</file>
+    <file alias="shutdown">shutdown.png</file>
+    <file alias="shutdown_b">shutdown_black.png</file>
+    <file alias="left">leftarrow.png</file>
+    <file alias="leftleft">leftleftarrow.png</file>
+    <file alias="right">rightarrow.png</file>
+    <file alias="rightright">rightrightarrow.png</file>
+    <file alias="vozvrat">vozvrat.png</file>
+    <file alias="0">o.png</file>
+    <file alias="0_b">o_black.png</file>
+    <file alias="settings">settings.png</file>
+    <file alias="settings_o">settings_opened.png</file>
+    <file alias="off">off.png</file>
+    <file alias="on">on.png</file>
+    <file alias="off_g">off_green.png</file>
+    <file alias="on_g">on_green.png</file>
+    <file alias="keyboard">keyboard.png</file>
+    <file alias="keyboard">keyboard.png</file>
+    <file alias="settingsio">settingsio.png</file>
+    <file alias="tograph">tograph.png</file>
+  </qresource>
+</RCC>
