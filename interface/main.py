@@ -130,7 +130,8 @@ class MainWindow(uiclass, baseclass):
         #threading.Thread(target=self.start_proc_events).start()
         ######
 
-        self.horizontalLayout_6.hide()
+        self.doubleSpinBox.hide()
+        self.label_2.hide()
 
         self.startbtn.setIcon(QIcon(":play"))
         self.startbtn.setIconSize(QtCore.QSize(50, 50))
