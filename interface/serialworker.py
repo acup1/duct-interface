@@ -17,6 +17,11 @@ def dw2float(dw_array):
     m1 = m*(2**(-23))                             # Мантисса в float
     return s*m1*(2**(e-127))
 
+def wtf(a):
+    assert (len(a) == 2)
+    return int(a.hex()[2:]+a.hex()[:2],16)
+
+
 def bytes_to_float(bytes_data):
     return int.from_bytes(bytes_data, "little", signed="True")
     return int(str(bytes_data[::-1])[4:-1].replace("\\x",""),16)/100
@@ -26,6 +31,14 @@ class serial_worker():
     send_buffer=[]
     x=d1=d2=d3=time=temp=0
     mode=1
+    rezhim_parametrv=False
+    parameter_number=parameter_value=0
+    zapros_parameter_number=0
+    ACP=[0]*8
+    xx=0
+    changed_param={}
+
+    KL=KR=ES=HO=CO=LO=0
 
     def __init__(self, device, rate):
         self.dev=device
@@ -51,6 +64,7 @@ class serial_worker():
         self.bd1=[]
         self.bd2=[]
         self.bd3=[]
+        self.send_command("setnr\x0a\x0d")
 
     def clear_buffer(self):
         self.bx=[]
@@ -71,9 +85,7 @@ class serial_worker():
             try:
                 data = self.ser.read_all()
                 if data:
-                    self.buffer+=data
-                    #print(data)
-                    if self.crc(data[:-2])==data[-2:] and len(data)==56:
+                    if self.crc(data[:-2])==data[-2:] and len(data)==54:
                         #print("ok")
                         self.x=int(bytes_to_float(data[4:8]))/100
                         self.d1=dw2float(data[8:12])
@@ -89,17 +101,64 @@ class serial_worker():
                         self.md1=dw2float(data[24:28])
                         self.md2=dw2float(data[28:32])
                         self.md3=dw2float(data[32:36])
-                        self.time=bytes_to_float(data[44:48])/1000
-                        self.temp=bytes_to_float(data[48:50])/10
+                        self.time=bytes_to_float(data[40:44])/1000
+                        self.temp=bytes_to_float(data[46:48])/10
 
+                        ds=("0"*8+bin(int(bytes([data[50]]).hex(),16))[2:])[-8:]
+                        
+                        self.KL=1 if int(ds[-1]) else 0
+                        self.KR=1 if int(ds[-2]) else 0
+                        self.ES=1 if int(ds[-3]) else 0
+                        self.HO=1 if int(ds[-4]) else 0
+                        self.CO=1 if int(ds[-5]) else 0
+                        self.LO=1 if int(ds[-6]) else 0
+
+                    elif self.crc(data[:-2])==data[-2:] and len(data)==30:
+                        self.mode=data[0]
+                        if self.mode==7:
+                            ds=("0"*8+bin(int(bytes([data[2]]).hex(),16))[2:])[-8:]
+                            self.KL=1 if int(ds[-1]) else 0
+                            self.KR=1 if int(ds[-2]) else 0
+                            self.ES=1 if int(ds[-3]) else 0
+                            self.HO=1 if int(ds[-4]) else 0
+                            self.CO=1 if int(ds[-5]) else 0
+                            self.LO=1 if int(ds[-6]) else 0
+                            #print(bytes_to_float(data[24:28]))
+                            self.xx=bytes_to_float(data[24:28])
+                            #print(self.xx)
+                            #print(data[3],data[4:6])
+                            self.parameter_number=int(data[3])
+                            self.parameter_value=wtf(data[4:6])
+                            for x in range(6,19,2):
+                                self.ACP[(x-6)//2]=wtf(data[x:x+2])
+
+                            if len(self.changed_param.keys())>0:
+                                for i in list(self.changed_param.keys()):
+                                    if i==self.parameter_number:
+                                        if self.changed_param[i][0]!=self.parameter_value and self.changed_param[i][1]<10:
+                                            self.send_param(i,self.changed_param[i][0])
+                                            self.changed_param[i][1]+=1
+                                        else:
+                                            del self.changed_param[i]
+                                        
+                            #print("param:")
+                            #print(self.parameter_number,self.parameter_value)
 
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
                     self.send_buffer=self.send_buffer[1:]
                 await asyncio.sleep(0.05)
                 if len(self.send_buffer)==0:
-                    self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
-            except:
+                    if self.rezhim_parametrv:
+                        if len(self.changed_param.keys())==0:
+                            c="pr".encode()+bytes([0])+'00\n\r'.encode()
+                        else:
+                            c="pr".encode()+bytes([list(self.changed_param.keys())[0]])+'00\n\r'.encode()
+                        self.send_bytes(c+self.crc(c))
+                    else:
+                        self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
+            except Exception as e:
+                print(e)
                 self.ser=serial.Serial(self.dev, self.rate)
 
 
@@ -108,7 +167,6 @@ class serial_worker():
         return c8.calc(array)
 
     def crc16(self, array):
-        
         a=hex(c16.calc(array))[2:]
         return int(a,16)
         a=a[2:]+a[:2]
@@ -125,7 +183,13 @@ class serial_worker():
         return bytes([int(("00"+hex(num)[2:])[-4:][:2],16),int(("00"+hex(num)[2:])[-4:][2:],16)])
 
     def send_param(self,n,x):
-        self.send_command(b"pw"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d")
+        #print(b"pw"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d")
+        self.changed_param[n]=[x,0]
+        self.send_command((b"pw"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d"))
+
+    def read_param(self,n):
+        #self.zapros_parameter_number=n
+        self.send_command((b"pr"+bytes([n])+b'00\n\r'))
 
     def send_bytes(self,b):
         self.ser.write(b)
@@ -140,7 +204,11 @@ class serial_worker():
         return crc
 
     def send_command(self,command):
-        self.send_buffer.append(command.encode("ASCII")+self.crc(command))
+        if str(type(command))=="<class 'bytes'>":pass
+        else:command=command.encode("ASCII")
+        c=command+self.crc(command)
+        if c not in self.send_buffer:
+            self.send_buffer.append(c)
 
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200)

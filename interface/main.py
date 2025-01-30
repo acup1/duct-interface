@@ -17,6 +17,8 @@ from time import time
 from render import render as updater
 from QThreadRender import render as qupdater
 from setupwindow import setupwindow
+from PyQt5.QtCore import QTimer
+from exlambda import exlambda
 
 s=serial_worker("/dev/ttyS3",115200)
 
@@ -33,6 +35,7 @@ def frange(x, y, jump):
 
 
 class MainWindow(uiclass, baseclass):
+    selected=0
     can_draw=False
     can_draw_d1=True
     can_draw_d2=True
@@ -119,7 +122,7 @@ class MainWindow(uiclass, baseclass):
         self.lcd4.setDigitCount(6)
         self.lcd5.setDigitCount(5)
         #updater(self,s)
-        self.upd=qupdater(self,s)
+        self.upd=qupdater()
         #self.upd.finished.connect(lambda: qupdater(self,s).start())
         self.upd.iteration_finished.connect(self.render_iteration)
         self.upd.start()
@@ -218,17 +221,32 @@ class MainWindow(uiclass, baseclass):
 
         def swap():
             self.setupwin.activateWindow()
+            s.rezhim_parametrv=True
             s.send_command("setpp\x0a\x0d")
         self.setparam.clicked.connect(swap)
         self.setparam.setIcon(QIcon(":settingsio"))
         self.setparam.setIconSize(QtCore.QSize(50, 50))
 
-    
+        self.changeX.clicked.connect(exlambda('''
+    if self.selected<3:
+        self.selected+=1
+    else:
+        self.selected=0
+''',"self",[self]))
+        
+
     def render_iteration(self,n):
         
         #while True:pass
         #main.processEvents()
         try:
+            if self.s.KL:
+                self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
+            if self.s.KR:
+                self.statusbar.showMessage("Зафиксировано нажатие правого концевика",2000)
+            if self.s.ES:
+                self.statusbar.showMessage("Аварийная остновка",2000)
+
             if self.testing_mode==False and int(s.mode)==5:
                 #while s.mode==b'\x05':
                 s.send_command("stop\x0a\x0d\x00")
@@ -237,21 +255,38 @@ class MainWindow(uiclass, baseclass):
             self.lcd5.display(str(int(s.time)))
             self.lcd6.display(f"{float(s.temp):.1f}")
             #main.lcd4.display(0)
-            self.lcd4.display(f"{float(s.x):.2f}")
+            if self.selected==0:
+                self.label_11.setText("Перемещение, мм")
+                self.lcd4.display(f"{float(s.x):.2f}")
+            elif self.selected==1:
+                self.label_11.setText("Образец 1, мм")
+                self.lcd4.display(f"{float(max(self.finale_data['d1']['x']+[0])):.2f}")
+            elif self.selected==2:
+                self.label_11.setText("Образец 2, мм")
+                self.lcd4.display(f"{float(max(self.finale_data['d2']['x']+[0])):.2f}")
+            elif self.selected==3:
+                self.label_11.setText("Образец 3, мм")
+                self.lcd4.display(f"{float(max(self.finale_data['d3']['x']+[0])):.2f}")
             #print(s.x,main.lcd4.value())
             k=5
             if n%5==0 and self.testing_mode:
                 if self.can_draw_d1:
                     self.d1data[0]=s.bx[::k] 
                     self.d1data[1]=s.bd1[::k]
+                    self.finale_data['d1']["x"]=list(s.bx)
+                    self.finale_data['d1']["y"]=s.bd1
 
                 if self.can_draw_d2:
                     self.d2data[0]=s.bx[::k] 
                     self.d2data[1]=s.bd2[::k]
+                    self.finale_data['d2']["x"]=list(s.bx)
+                    self.finale_data['d2']["y"]=s.bd2
 
                 if self.can_draw_d3:
                     self.d3data[0]=s.bx[::k] 
                     self.d3data[1]=s.bd3[::k]
+                    self.finale_data['d3']["x"]=list(s.bx)
+                    self.finale_data['d3']["y"]=s.bd3
 
                 self.graph.disableAutoRange()
                 self.plot()
@@ -309,18 +344,14 @@ class MainWindow(uiclass, baseclass):
 
             if sum(self.k["d1"][0:2])==2 or sum(self.k["d1"][2:4])==2:
                 self.can_draw_d1=False
-                self.finale_data['d1']["x"]=s.bx
-                self.finale_data['d1']["y"]=s.bd1
+                
                 #print("stop 1",sum(self.k["d1"][0:2])==2,sum(self.k["d1"][2:4])==2)
             if sum(self.k["d2"][0:2])==2 or sum(self.k["d2"][2:4])==2:
                 self.can_draw_d2=False
-                self.finale_data['d2']["x"]=s.bx
-                self.finale_data['d2']["y"]=s.bd2
+
                 #print("stop 2",sum(self.k["d2"][0:2])==2,sum(self.k["d2"][2:4])==2)
             if sum(self.k["d3"][0:2])==2 or sum(self.k["d3"][2:4])==2:
                 self.can_draw_d3=False
-                self.finale_data['d3']["x"]=s.bx
-                self.finale_data['d3']["y"]=s.bd3
 
                 #print("stop 3",sum(self.k["d3"][0:2])==2,sum(self.k["d3"][2:4])==2)
             #print(*self.k["d1"])
@@ -366,8 +397,16 @@ class MainWindow(uiclass, baseclass):
             self.show_maxes=False
 
     def openkeyboard(self):
+        self.keyboardbtn.setEnabled(False)
         os.system("onboard &")
+        self.timer = QTimer()
+        self.timer.setInterval(2000)
+        self.timer.timeout.connect(self.tstop)
+        self.timer.start()
 
+    def tstop(self):
+        self.timer.stop()
+        self.keyboardbtn.setEnabled(True)
     
     
     def disable_interface(self):
@@ -416,6 +455,10 @@ class MainWindow(uiclass, baseclass):
         self.settings.setIcon(QIcon(":settings"))
 
     def stopbtn_func(self):
+        self.can_draw_d1=False
+        self.can_draw_d2=False
+        self.can_draw_d3=False
+        '''
         if any([self.can_draw_d1,self.can_draw_d2,self.can_draw_d3]):
             self.can_draw_d1=False
             self.finale_data['d1']["x"]=s.bx
@@ -426,7 +469,8 @@ class MainWindow(uiclass, baseclass):
             self.can_draw_d3=False
             self.finale_data['d3']["x"]=s.bx
             self.finale_data['d3']["y"]=s.bd3
-
+        '''
+        
         self.d1data[0]=self.finale_data['d1']['x']
         self.d1data[1]=self.finale_data['d1']['y']
         self.d2data[0]=self.finale_data['d2']['x']
@@ -466,6 +510,7 @@ class MainWindow(uiclass, baseclass):
         self.can_draw_d2=True
         self.can_draw_d3=True
         self.enable_interface()
+        s.clear_buffer()
         #self.clear_graph()
         s.send_command("stop\x0a\x0d\x00")
         #exit()
@@ -495,7 +540,7 @@ class MainWindow(uiclass, baseclass):
         
     
     def po_accepted(self):
-        os.system("poweroff")    
+        os.system("systemctl poweroff")    
 
     def turn_off_testing_led(self):
         self.testing.setPixmap(QIcon(":off_g").pixmap(QtCore.QSize(40, 40)))
@@ -590,11 +635,10 @@ class MainWindow(uiclass, baseclass):
 
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    setupwin = setupwindow()
+    setupwin = setupwindow(s)
     mainwin = MainWindow()
     mainwin.setupwin=setupwin
     setupwin.mainwin=mainwin
-    setupwin.s=s
     mainwin.show()
     setupwin.show()
     app.exec()

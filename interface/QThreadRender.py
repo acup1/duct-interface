@@ -5,12 +5,9 @@ from time import sleep
 class render(QThread):
     iteration_finished = pyqtSignal(int)
 
-    def __init__(self,main,serial, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-        self.main=main
-        self.serial=serial
         
-
     def run(self):
         n=0
         while True:

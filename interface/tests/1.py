@@ -1,34 +1,31 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
 import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QColor
 
-data = {'col1':['1','2','3','4'],
-        'col2':['1','2','1','3'],
-        'col3':['1','1','2','1']}
- 
-class TableView(QTableWidget):
-    def __init__(self, data, *args):
-        QTableWidget.__init__(self, *args)
-        self.data = data
-        self.setData()
-        self.resizeColumnsToContents()
-        self.resizeRowsToContents()
- 
-    def setData(self): 
-        horHeaders = []
-        for n, key in enumerate(sorted(self.data.keys())):
-            horHeaders.append(key)
-            for m, item in enumerate(self.data[key]):
-                newitem = QTableWidgetItem(item)
-                self.setItem(m, n, newitem)
-        self.setHorizontalHeaderLabels(horHeaders)
- 
-def main(args):
-    app = QApplication(args)
-    table = TableView(data, 4, 3)
-    table.show()
+class TransparentButton(QPushButton):
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        
+        self.setStyleSheet("border: 2px solid black; background-color: rgba(0, 0, 0, 0); color: black;")
+    
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.fillRect(self.rect(), QColor(0, 0, 0, 0))  # Заполняем фон прозрачным цветом
+        super().paintEvent(event)
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setGeometry(100, 100, 300, 200)
+        self.setWindowTitle("Прозрачная кнопка с рамками")
+        
+        button = TransparentButton("Прозрачная кнопка", self)
+        button.setGeometry(50, 50, 200, 50)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec_())
- 
-if __name__=="__main__":
-    main(sys.argv)
