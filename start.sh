@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep 5
 git clean -xdf
 git reset --hard
 git pull
