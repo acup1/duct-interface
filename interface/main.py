@@ -130,6 +130,7 @@ class MainWindow(uiclass, baseclass):
         #threading.Thread(target=self.start_proc_events).start()
         ######
 
+        self.horizontalLayout_6.hide()
 
         self.startbtn.setIcon(QIcon(":play"))
         self.startbtn.setIconSize(QtCore.QSize(50, 50))
@@ -206,6 +207,7 @@ class MainWindow(uiclass, baseclass):
         self.heater.setIconSize(QtCore.QSize(40, 40))
         self.heater_active=False
         self.heater.clicked.connect(self.heater_toggler)
+        self.heater.hide()
 
         self.maxes.clicked.connect(self.toggle_values_mode)
 
