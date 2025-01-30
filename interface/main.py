@@ -208,7 +208,7 @@ class MainWindow(uiclass, baseclass):
         self.heater.setIconSize(QtCore.QSize(40, 40))
         self.heater_active=False
         self.heater.clicked.connect(self.heater_toggler)
-        self.heater.hide()
+        #self.heater.hide()
 
         self.maxes.clicked.connect(self.toggle_values_mode)
 
