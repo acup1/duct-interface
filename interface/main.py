@@ -544,7 +544,7 @@ class MainWindow(uiclass, baseclass):
         
     
     def po_accepted(self):
-        os.system("systemctl poweroff")    
+        os.system("systemctl reboot")    
 
     def turn_off_testing_led(self):
         self.testing.setPixmap(QIcon(":off_g").pixmap(QtCore.QSize(40, 40)))
