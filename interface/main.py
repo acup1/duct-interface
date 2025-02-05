@@ -132,6 +132,7 @@ class MainWindow(uiclass, baseclass):
 
         self.doubleSpinBox.hide()
         self.label_2.hide()
+        self.statusbar.showMessage("test",5000)
 
         self.startbtn.setIcon(QIcon(":play"))
         self.startbtn.setIconSize(QtCore.QSize(50, 50))

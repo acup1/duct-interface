@@ -34,7 +34,7 @@ class serial_worker():
     rezhim_parametrv=False
     parameter_number=parameter_value=0
     zapros_parameter_number=0
-    ACP=[0]*8
+    ACP=[0 for _ in range(8)]
     xx=0
     changed_param={}
 
