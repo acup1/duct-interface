@@ -535,7 +535,6 @@ class MainWindow(uiclass, baseclass):
         #threading.Thread(target=self.test_start).start()
 
     def shutdownbtn_func(self):
-        os.system("systemctl reboot")
         if self.POac.isHidden():
             self.POac.show()
             self.shutdownbtn.setIcon(QIcon(":shutdown_b"))
@@ -545,7 +544,8 @@ class MainWindow(uiclass, baseclass):
         
     
     def po_accepted(self):
-        os.system("systemctl poweroff")    
+        os.system("systemctl reboot")
+        #os.system("systemctl poweroff")    
 
     def turn_off_testing_led(self):
         self.testing.setPixmap(QIcon(":off_g").pixmap(QtCore.QSize(40, 40)))
