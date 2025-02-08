@@ -36,7 +36,7 @@ def frange(x, y, jump):
 
 class MainWindow(uiclass, baseclass):
     selected=0
-    can_draw=True
+    can_draw=False
     can_draw_d1=True
     can_draw_d2=True
     can_draw_d3=True
@@ -532,7 +532,7 @@ class MainWindow(uiclass, baseclass):
         self.can_draw=True
         self.testing_mode=True
         s.send_command('start\x0a\x0d')
-        #threading.Thread(target=self.test_start).start()
+        threading.Thread(target=self.test_start).start()
 
     def shutdownbtn_func(self):
         if self.POac.isHidden():
@@ -545,7 +545,7 @@ class MainWindow(uiclass, baseclass):
     
     def po_accepted(self):
         os.system("systemctl reboot")
-        #os.system("systemctl poweroff")    
+        #os.system("systemctl poweroff")
 
     def turn_off_testing_led(self):
         self.testing.setPixmap(QIcon(":off_g").pixmap(QtCore.QSize(40, 40)))
