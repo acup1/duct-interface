@@ -127,7 +127,7 @@ class MainWindow(uiclass, baseclass):
         self.upd.iteration_finished.connect(self.render_iteration)
         self.upd.start()
         
-        #threading.Thread(target=self.start_proc_events).start()
+        threading.Thread(target=self.start_proc_events).start()
         ######
 
         self.doubleSpinBox.hide()
@@ -387,7 +387,7 @@ class MainWindow(uiclass, baseclass):
         return 0
         loop=asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        #loop.run_until_complete(self.proc_events())
+        loop.run_until_complete(self.proc_events())
 
     async def proc_events(self):
         while True:
