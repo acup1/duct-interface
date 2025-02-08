@@ -36,7 +36,7 @@ def frange(x, y, jump):
 
 class MainWindow(uiclass, baseclass):
     selected=0
-    can_draw=False
+    can_draw=True
     can_draw_d1=True
     can_draw_d2=True
     can_draw_d3=True
