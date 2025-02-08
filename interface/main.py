@@ -554,7 +554,7 @@ class MainWindow(uiclass, baseclass):
         self.testing.setPixmap(QIcon(":on_g").pixmap(QtCore.QSize(40, 40)))
 
     def test_start(self):
-        return 0
+        #return 0
         loop=asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(self.test())
