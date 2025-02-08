@@ -127,7 +127,7 @@ class MainWindow(uiclass, baseclass):
         self.upd.iteration_finished.connect(self.render_iteration)
         self.upd.start()
         
-        threading.Thread(target=self.start_proc_events).start()
+        #threading.Thread(target=self.start_proc_events).start()
         ######
 
         self.doubleSpinBox.hide()
@@ -240,7 +240,7 @@ class MainWindow(uiclass, baseclass):
         
 
     def render_iteration(self,n):
-        
+        print("ASFFASFASFASFSAFSFASF")
         #while True:pass
         #main.processEvents()
         try:
@@ -532,7 +532,7 @@ class MainWindow(uiclass, baseclass):
         self.can_draw=True
         self.testing_mode=True
         s.send_command('start\x0a\x0d')
-        threading.Thread(target=self.test_start).start()
+        #threading.Thread(target=self.test_start).start()
 
     def shutdownbtn_func(self):
         if self.POac.isHidden():
@@ -554,7 +554,7 @@ class MainWindow(uiclass, baseclass):
         self.testing.setPixmap(QIcon(":on_g").pixmap(QtCore.QSize(40, 40)))
 
     def test_start(self):
-        #return 0
+        return 0
         loop=asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(self.test())
