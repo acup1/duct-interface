@@ -573,7 +573,6 @@ class MainWindow(uiclass, baseclass):
             self.testing_counter+=1
             await asyncio.sleep(0.1)
 
-        '''
         try:
             for x in frange(0,20,0.1):
                 self.d1add(x, -0.5*x**2+5*x+20)
@@ -582,7 +581,6 @@ class MainWindow(uiclass, baseclass):
                 time.sleep(0.01)
         except:
             pass
-        '''
         self.turn_off_testing_led()
         self.can_draw=False
         self.enable_interface()
