@@ -158,7 +158,7 @@ class serial_worker():
                     else:
                         self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
             except Exception as e:
-                #print(e)
+                print(e)
                 self.ser=serial.Serial(self.dev, self.rate)
 
 

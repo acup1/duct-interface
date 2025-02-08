@@ -242,7 +242,7 @@ class MainWindow(uiclass, baseclass):
     def render_iteration(self,n):
         print("ASFFASFASFASFSAFSFASF")
         #while True:pass
-        #main.processEvents()
+        self.processEvents()
         try:
             if self.s.KL:
                 self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
@@ -378,7 +378,9 @@ class MainWindow(uiclass, baseclass):
             #self.msleep(500)
             #sleep(0.1)
             #self.iteration_finished.emit()
-        except Exception as err: print(err)
+        except Exception as err: 
+            pass
+            #print(err)
 
     def focusInEvent(self, event):
         print('Got focus')
