@@ -242,7 +242,7 @@ class MainWindow(uiclass, baseclass):
     def render_iteration(self,n):
         print("ASFFASFASFASFSAFSFASF")
         #while True:pass
-        self.processEvents()
+        #self.processEvents()
         try:
             if self.s.KL:
                 self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
