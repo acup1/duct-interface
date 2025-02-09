@@ -243,7 +243,6 @@ class MainWindow(uiclass, baseclass):
         #while True:pass
         #self.processEvents()
         try:
-            print(s.bd1)
             if self.s.KL:
                 self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
             if self.s.KR:
@@ -369,7 +368,7 @@ class MainWindow(uiclass, baseclass):
             #print(self.testing_mode)
             #if n%20==0:
 
-            if False:
+            if True:
                 self.msleep(100)
                 main.processEvents()
             #main.can_draw=False 
