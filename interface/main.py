@@ -243,12 +243,12 @@ class MainWindow(uiclass, baseclass):
         #while True:pass
         #self.processEvents()
         try:
-            #if self.s.KL:
-            #    self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
-            #if self.s.KR:
-            #    self.statusbar.showMessage("Зафиксировано нажатие правого концевика",2000)
-            #if self.s.ES:
-            #    self.statusbar.showMessage("Аварийная остновка",2000)
+            if s.KL:
+                self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
+            if s.KR:
+                self.statusbar.showMessage("Зафиксировано нажатие правого концевика",2000)
+            if s.ES:
+                self.statusbar.showMessage("Аварийная остновка",2000)
 
             if self.testing_mode==False and int(s.mode)==5:
                 #while s.mode==b'\x05':
@@ -377,7 +377,7 @@ class MainWindow(uiclass, baseclass):
             QApplication.processEvents()
             #self.msleep(500)
             #sleep(0.1)
-            self.iteration_finished.emit()
+            #self.iteration_finished.emit()
         except Exception as err: 
             print(err)
 
