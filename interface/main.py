@@ -368,19 +368,18 @@ class MainWindow(uiclass, baseclass):
             #print(self.testing_mode)
             #if n%20==0:
 
-            if True:
+            if False:
                 self.msleep(100)
                 main.processEvents()
                 print(1)
             #main.can_draw=False 
             #main.processEvents()
-            #QApplication.processEvents()
+            QApplication.processEvents()
             #self.msleep(500)
             #sleep(0.1)
             self.iteration_finished.emit()
         except Exception as err: 
-            pass
-            #print(err)
+            print(err)
 
     def focusInEvent(self, event):
         print('Got focus')
