@@ -243,12 +243,12 @@ class MainWindow(uiclass, baseclass):
         #while True:pass
         #self.processEvents()
         try:
-            if self.s.KL:
-                self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
-            if self.s.KR:
-                self.statusbar.showMessage("Зафиксировано нажатие правого концевика",2000)
-            if self.s.ES:
-                self.statusbar.showMessage("Аварийная остновка",2000)
+            #if self.s.KL:
+            #    self.statusbar.showMessage("Зафиксировано нажатие левого концевика",2000)
+            #if self.s.KR:
+            #    self.statusbar.showMessage("Зафиксировано нажатие правого концевика",2000)
+            #if self.s.ES:
+            #    self.statusbar.showMessage("Аварийная остновка",2000)
 
             if self.testing_mode==False and int(s.mode)==5:
                 #while s.mode==b'\x05':
