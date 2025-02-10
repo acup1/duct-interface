@@ -1,4 +1,5 @@
 import serial
+from time import time
 import asyncio
 import threading
 import struct
@@ -81,6 +82,7 @@ class serial_worker():
         loop.run_until_complete(self.read_serial_data())
 
     async def read_serial_data(self):
+        timer=time()
         while True:
             try:
                 data = self.ser.read_all()
@@ -156,7 +158,9 @@ class serial_worker():
                             c="pr".encode()+bytes([list(self.changed_param.keys())[0]])+'00\n\r'.encode()
                         self.send_bytes(c+self.crc(c))
                     else:
-                        self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
+                        if time()-timer>=.2:
+                            self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
+                            timer=time()
             except Exception as e:
                 print(e)
                 self.ser=serial.Serial(self.dev, self.rate)
