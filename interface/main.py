@@ -181,16 +181,27 @@ class MainWindow(uiclass, baseclass):
         
         self.o1.setIcon(QIcon(":0"))
         self.o1.setIconSize(QtCore.QSize(40, 40))
-        self.o1.clicked.connect(lambda:self.lcd1.display(0))
+        self.o1.clicked.connect(exlambda('''
+    s.send_command("s0set\x0a\x0d")
+    self.lcd1.display(0)
+''',"self",[self]))
+
+
 
         self.o2.setIcon(QIcon(":0"))
         self.o2.setIconSize(QtCore.QSize(40, 40))
-        self.o2.clicked.connect(lambda:self.lcd2.display(0))
+        self.o2.clicked.connect(exlambda('''
+    s.send_command("s1set\x0a\x0d")
+    self.lcd2.display(0)
+''',"self",[self]))
 
         self.o3.setIcon(QIcon(":0"))
         self.o3.setIconSize(QtCore.QSize(40, 40))
-        self.o3.clicked.connect(lambda:self.lcd3.display(0))
-        
+        self.o3.clicked.connect(exlambda('''
+    s.send_command("s2set\x0a\x0d")
+    self.lcd3.display(0)
+''',"self",[self]))
+
         self.clear_accept.hide()
         self.clear_accept.clicked.connect(self.clear_accept_func)
         self.o4.setIcon(QIcon(":0"))
