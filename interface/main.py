@@ -181,27 +181,18 @@ class MainWindow(uiclass, baseclass):
         
         self.o1.setIcon(QIcon(":0"))
         self.o1.setIconSize(QtCore.QSize(40, 40))
-        self.o1.clicked.connect(exlambda('''
-    s.send_command("s0set\x0a\x0d")
-    self.lcd1.display(0)
-''',"self",[self]))
+        self.o1.clicked.connect(self.null_d0)
 
 
 
         self.o2.setIcon(QIcon(":0"))
         self.o2.setIconSize(QtCore.QSize(40, 40))
-        self.o2.clicked.connect(exlambda('''
-    s.send_command("s1set\x0a\x0d")
-    self.lcd2.display(0)
-''',"self",[self]))
+        self.o2.clicked.connect(self.null_d1)
 
         self.o3.setIcon(QIcon(":0"))
         self.o3.setIconSize(QtCore.QSize(40, 40))
-        self.o3.clicked.connect(exlambda('''
-    s.send_command("s2set\x0a\x0d")
-    self.lcd3.display(0)
-''',"self",[self]))
-
+        self.o3.clicked.connect(self.null_d2)
+        
         self.clear_accept.hide()
         self.clear_accept.clicked.connect(self.clear_accept_func)
         self.o4.setIcon(QIcon(":0"))
@@ -248,7 +239,18 @@ class MainWindow(uiclass, baseclass):
     else:
         self.selected=0
 ''',"self",[self]))
-        
+
+    def null_d0(self):
+        s.send_command("s0set\x0a\x0d")
+        self.lcd1.display(0)
+
+    def null_d1(self):
+        s.send_command("s1set\x0a\x0d")
+        self.lcd2.display(0)
+
+    def null_d2(self):
+        s.send_command("s2set\x0a\x0d")
+        self.lcd3.display(0)
 
     def render_iteration(self,n):
         #while True:pass
