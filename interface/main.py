@@ -309,15 +309,17 @@ class MainWindow(uiclass, baseclass):
                 self.graph.enableAutoRange()
                 #print(int(k1),int(k2),int(k3))
             
-            if self.show_maxes:
-                self.lcd1.display(f"{float(max(s.bd1+[0])):.2f}")
-                self.lcd2.display(f"{float(max(s.bd2+[0])):.2f}")
-                self.lcd3.display(f"{float(max(s.bd3+[0])):.2f}")
-            else:
-                self.lcd1.display(f"{float(s.bd1[-1]):.2f}")
-                self.lcd2.display(f"{float(s.bd2[-1]):.2f}")
-                self.lcd3.display(f"{float(s.bd3[-1]):.2f}")
-
+            try:
+                if self.show_maxes:
+                    self.lcd1.display(f"{float(max(s.bd1+[s.d1])):.2f}")
+                    self.lcd2.display(f"{float(max(s.bd2+[s.d2])):.2f}")
+                    self.lcd3.display(f"{float(max(s.bd3+[s.d3])):.2f}")
+                else:
+                    self.lcd1.display(f"{float(s.d1):.2f}")
+                    self.lcd2.display(f"{float(s.d2):.2f}")
+                    self.lcd3.display(f"{float(s.d3):.2f}")
+            except:
+                pass
             
 
             if n%5==0:
