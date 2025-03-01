@@ -87,64 +87,67 @@ class serial_worker():
             try:
                 data = self.ser.read_all()
                 if data:
-                    if self.crc(data[:-2])==data[-2:] and len(data)==54:
-                        #print("ok")
-                        self.x=int(bytes_to_float(data[4:8]))/100
-                        self.d1=dw2float(data[8:12])
-                        self.d2=dw2float(data[12:16])
-                        self.d3=dw2float(data[16:20])
-                        self.mode=data[0]
-                        if self.mode==5:
-                            self.bx.append(self.x)
-                            self.bd1.append(self.d1)
-                            self.bd2.append(self.d2)
-                            self.bd3.append(self.d3)
+                    if self.crc(data[:-2])==data[-2:]:
+                        if len(data)==54:
+                            #print("ok")
+                            self.x=int(bytes_to_float(data[4:8]))/100
+                            self.d1=dw2float(data[8:12])
+                            self.d2=dw2float(data[12:16])
+                            self.d3=dw2float(data[16:20])
+                            self.mode=data[0]
+                            if self.mode==5:
+                                self.bx.append(self.x)
+                                self.bd1.append(self.d1)
+                                self.bd2.append(self.d2)
+                                self.bd3.append(self.d3)
 
-                        self.md1=dw2float(data[24:28])
-                        self.md2=dw2float(data[28:32])
-                        self.md3=dw2float(data[32:36])
-                        self.time=bytes_to_float(data[40:44])/1000
-                        self.temp=bytes_to_float(data[46:48])/10
+                            self.md1=dw2float(data[24:28])
+                            self.md2=dw2float(data[28:32])
+                            self.md3=dw2float(data[32:36])
+                            self.time=bytes_to_float(data[40:44])/1000
+                            self.temp=bytes_to_float(data[46:48])/10
 
-                        ds=("0"*8+bin(int(bytes([data[50]]).hex(),16))[2:])[-8:]
-                        
-                        self.KL=1 if int(ds[-1]) else 0
-                        self.KR=1 if int(ds[-2]) else 0
-                        self.ES=1 if int(ds[-3]) else 0
-                        self.HO=1 if int(ds[-4]) else 0
-                        self.CO=1 if int(ds[-5]) else 0
-                        self.LO=1 if int(ds[-6]) else 0
-
-                    elif self.crc(data[:-2])==data[-2:] and len(data)==30:
-                        self.mode=data[0]
-                        if self.mode==7:
-                            ds=("0"*8+bin(int(bytes([data[2]]).hex(),16))[2:])[-8:]
+                            ds=("0"*8+bin(int(bytes([data[50]]).hex(),16))[2:])[-8:]
+                            
                             self.KL=1 if int(ds[-1]) else 0
                             self.KR=1 if int(ds[-2]) else 0
                             self.ES=1 if int(ds[-3]) else 0
                             self.HO=1 if int(ds[-4]) else 0
                             self.CO=1 if int(ds[-5]) else 0
                             self.LO=1 if int(ds[-6]) else 0
-                            #print(bytes_to_float(data[24:28]))
-                            self.xx=bytes_to_float(data[24:28])
-                            #print(self.xx)
-                            #print(data[3],data[4:6])
-                            self.parameter_number=int(data[3])
-                            self.parameter_value=wtf(data[4:6])
-                            for x in range(6,19,2):
-                                self.ACP[(x-6)//2]=wtf(data[x:x+2])
 
-                            if len(self.changed_param.keys())>0:
-                                for i in list(self.changed_param.keys()):
-                                    if i==self.parameter_number:
-                                        if self.changed_param[i][0]!=self.parameter_value and self.changed_param[i][1]<10:
-                                            self.send_param(i,self.changed_param[i][0])
-                                            self.changed_param[i][1]+=1
-                                        else:
-                                            del self.changed_param[i]
-                                        
-                            #print("param:")
-                            #print(self.parameter_number,self.parameter_value)
+                        elif len(data)==30:
+                            self.mode=data[0]
+                            if self.mode==7:
+                                ds=("0"*8+bin(int(bytes([data[2]]).hex(),16))[2:])[-8:]
+                                self.KL=1 if int(ds[-1]) else 0
+                                self.KR=1 if int(ds[-2]) else 0
+                                self.ES=1 if int(ds[-3]) else 0
+                                self.HO=1 if int(ds[-4]) else 0
+                                self.CO=1 if int(ds[-5]) else 0
+                                self.LO=1 if int(ds[-6]) else 0
+                                #print(bytes_to_float(data[24:28]))
+                                self.xx=bytes_to_float(data[24:28])
+                                #print(self.xx)
+                                #print(data[3],data[4:6])
+                                self.parameter_number=int(data[3])
+                                self.parameter_value=wtf(data[4:6])
+                                for x in range(6,19,2):
+                                    self.ACP[(x-6)//2]=wtf(data[x:x+2])
+
+                                if len(self.changed_param.keys())>0:
+                                    for i in list(self.changed_param.keys()):
+                                        if i==self.parameter_number:
+                                            if self.changed_param[i][0]!=self.parameter_value and self.changed_param[i][1]<10:
+                                                self.send_param(i,self.changed_param[i][0])
+                                                self.changed_param[i][1]+=1
+                                            else:
+                                                del self.changed_param[i]
+                                            
+                                #print("param:")
+                                #print(self.parameter_number,self.parameter_value)
+                    else:
+                        print("crc err")
 
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
