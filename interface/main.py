@@ -311,9 +311,9 @@ class MainWindow(uiclass, baseclass):
             
             try:
                 if self.show_maxes:
-                    self.lcd1.display(f"{float(max(s.bd1+[s.d1])):.2f}")
-                    self.lcd2.display(f"{float(max(s.bd2+[s.d2])):.2f}")
-                    self.lcd3.display(f"{float(max(s.bd3+[s.d3])):.2f}")
+                    self.lcd1.display(f"{float(s.md1):.2f}")
+                    self.lcd2.display(f"{float(s.md2):.2f}")
+                    self.lcd3.display(f"{float(s.md3):.2f}")
                 else:
                     self.lcd1.display(f"{float(s.d1):.2f}")
                     self.lcd2.display(f"{float(s.d2):.2f}")
