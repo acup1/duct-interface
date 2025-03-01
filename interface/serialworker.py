@@ -87,7 +87,7 @@ class serial_worker():
             try:
                 data = self.ser.read_all()
                 if data:
-                    if self.crc(data[:-2])==data[-2:]:
+                    if self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1]:
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
