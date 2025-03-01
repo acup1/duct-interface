@@ -152,7 +152,7 @@ class serial_worker():
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
                     self.send_buffer=self.send_buffer[1:]
-                await asyncio.sleep(3)
+                await asyncio.sleep(.2)
                 if len(self.send_buffer)==0:
                     if self.rezhim_parametrv:
                         if len(self.changed_param.keys())==0:
