@@ -219,7 +219,7 @@ class serial_worker():
         try:
             print("sended:",command.encode("ASCII"))
         except:pass
-            
+
         if str(type(command))=="<class 'bytes'>":pass
         else:command=command.encode("ASCII")
         c=command+self.crc(command)
