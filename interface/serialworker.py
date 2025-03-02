@@ -224,6 +224,7 @@ class serial_worker():
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200, spam=False)
     print('''
+q\texit
 ↵\tread
 1\tstart
 2\tstop
@@ -233,7 +234,9 @@ if __name__=="__main__":
     ''')
     while True:
         a=str(input("cmd: "))
-        if a=="":
+        if a=="q":
+            break
+        elif a=="":
             s.send_command('read\x0a\x0d\x00')
             sleep(.1)
             print("crc:",s.package_crc)
