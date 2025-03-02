@@ -216,7 +216,10 @@ class serial_worker():
         return crc
 
     def send_command(self,command):
-        print("sended:",command.encode("ASCII"))
+        try:
+            print("sended:",command.encode("ASCII"))
+        except:pass
+            
         if str(type(command))=="<class 'bytes'>":pass
         else:command=command.encode("ASCII")
         c=command+self.crc(command)
