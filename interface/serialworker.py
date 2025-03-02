@@ -223,8 +223,12 @@ class serial_worker():
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200, spam=False)
     while True:
-        a=str(input())
+        a=str(input("cmd: "))
         if a=="":
             s.send_command('read\x0a\x0d\x00')
+            sleep(.1)
+            print(s.package_crc)
+        elif a=="1":
+            s.send_command('sta0000')
             sleep(.1)
             print(s.package_crc)
