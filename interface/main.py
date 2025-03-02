@@ -416,6 +416,7 @@ class MainWindow(uiclass, baseclass):
             self.show_maxes=True
         else:
             self.show_maxes=False
+        print(self.maxes.__class__)
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
