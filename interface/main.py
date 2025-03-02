@@ -155,30 +155,30 @@ class MainWindow(uiclass, baseclass):
         self.left.setIcon(QIcon(":left"))
         self.left.setIconSize(QtCore.QSize(66, 66))
         #self.left.clicked.connect(self.left_func)
-        self.left.pressed.connect(lambda: s.send_command("left\x0a\x0d\x00"))
-        self.left.released.connect(lambda: s.send_command("stop\x0a\x0d\x00"))
+        self.left.pressed.connect(lambda: s.send_command("LEFT\x0a\x0d\x00"))
+        self.left.released.connect(lambda: s.send_command("STOP\x0a\x0d\x00"))
 
         self.leftleft.setIcon(QIcon(":leftleft"))
         self.leftleft.setIconSize(QtCore.QSize(66, 66))
         #self.leftleft.clicked.connect(self.leftleft_func)
-        self.leftleft.pressed.connect(lambda: s.send_command("rleft\x0a\x0d"))
-        self.leftleft.released.connect(lambda: s.send_command("stop\x0a\x0d\x00"))
+        self.leftleft.pressed.connect(lambda: s.send_command("RLEFT\x0a\x0d"))
+        self.leftleft.released.connect(lambda: s.send_command("STOP\x0a\x0d\x00"))
 
         self.right.setIcon(QIcon(":right"))
         self.right.setIconSize(QtCore.QSize(66, 66))
         #self.right.clicked.connect(self.left_func)
-        self.right.pressed.connect(lambda: s.send_command("right\x0a\x0d"))
-        self.right.released.connect(lambda: s.send_command("stop\x0a\x0d\x00"))
+        self.right.pressed.connect(lambda: s.send_command("RIGHT\x0a\x0d"))
+        self.right.released.connect(lambda: s.send_command("STOP\x0a\x0d\x00"))
 
         self.rightright.setIcon(QIcon(":rightright"))
         self.rightright.setIconSize(QtCore.QSize(66, 66))
         #self.rightright.clicked.connect(self.rightright_func)
         self.rightright.pressed.connect(lambda: s.send_command("rrigh\x0a\x0d"))
-        self.rightright.released.connect(lambda: s.send_command("stop\x0a\x0d\x00"))
+        self.rightright.released.connect(lambda: s.send_command("STOP\x0a\x0d\x00"))
 
         self.vozvrat.setIcon(QIcon(":vozvrat"))
         self.vozvrat.setIconSize(QtCore.QSize(66, 66))
-        self.vozvrat.clicked.connect(lambda: s.send_command("reset\x0a\x0d"))
+        self.vozvrat.clicked.connect(lambda: s.send_command("RESET\x0a\x0d"))
         
         self.o1.setIcon(QIcon(":0"))
         self.o1.setIconSize(QtCore.QSize(40, 40))
@@ -229,7 +229,7 @@ class MainWindow(uiclass, baseclass):
         def swap():
             self.setupwin.activateWindow()
             s.rezhim_parametrv=True
-            s.send_command("setpp\x0a\x0d")
+            s.send_command("SETPP\x0a\x0d")
         self.setparam.clicked.connect(swap)
         self.setparam.setIcon(QIcon(":settingsio"))
         self.setparam.setIconSize(QtCore.QSize(50, 50))
@@ -242,15 +242,15 @@ class MainWindow(uiclass, baseclass):
 ''',"self",[self]))
 
     def null_d0(self):
-        s.send_command("s0set\x0a\x0d")
+        s.send_command("S0SET\x0a\x0d")
         self.lcd1.display(0)
 
     def null_d1(self):
-        s.send_command("s1set\x0a\x0d")
+        s.send_command("S1SET\x0a\x0d")
         self.lcd2.display(0)
 
     def null_d2(self):
-        s.send_command("s2set\x0a\x0d")
+        s.send_command("S2SET\x0a\x0d")
         self.lcd3.display(0)
 
     def render_iteration(self,n):
@@ -266,7 +266,7 @@ class MainWindow(uiclass, baseclass):
 
             if self.testing_mode==False and int(s.mode)==5:
                 #while s.mode==b'\x05':
-                s.send_command("stop\x0a\x0d\x00")
+                s.send_command("STOP\x0a\x0d\x00")
             #print(int(time())%2)
             #if int(time())%5==0:
             self.lcd5.display(str(int(s.time)))
@@ -376,7 +376,7 @@ class MainWindow(uiclass, baseclass):
             #print(*self.k["d1"])
 
             if (not(self.can_draw_d1)) and (not(self.can_draw_d2)) and (not(self.can_draw_d3)):
-                s.send_command("stop\x0a\x0d\x00")
+                s.send_command("STOP\x0a\x0d\x00")
                 self.stopbtn_func()
 
 
@@ -441,7 +441,7 @@ class MainWindow(uiclass, baseclass):
     def clear_accept_func(self):
         self.clear_accept.hide()
         self.o4.setIcon(QIcon(":0"))
-        s.send_command("setx0\x0a\x0d")
+        s.send_command("SETX0\x0a\x0d")
         self.lcd4.display(0)
 
     def o4_func(self):
@@ -456,11 +456,11 @@ class MainWindow(uiclass, baseclass):
         if self.heater_active:
             self.heater.setIcon(QIcon(":off"))
             self.heater_active=False
-            s.send_command("hatof\x0a\x0d")
+            s.send_command("HATOF\x0a\x0d")
         else:
             self.heater.setIcon(QIcon(":on"))
             self.heater_active=True
-            s.send_command("hater\x0a\x0d")
+            s.send_command("HATER\x0a\x0d")
 
 
     def open_settings(self):
@@ -533,7 +533,7 @@ class MainWindow(uiclass, baseclass):
         self.enable_interface()
         s.clear_buffer()
         #self.clear_graph()
-        s.send_command("stop\x0a\x0d\x00")
+        s.send_command("STOP\x0a\x0d\x00")
         #exit()
 
     def clear_graph(self):
@@ -548,7 +548,7 @@ class MainWindow(uiclass, baseclass):
         self.disable_interface()
         self.can_draw=True
         self.testing_mode=True
-        s.send_command('start\x0a\x0d')
+        s.send_command('START\x0a\x0d')
         #threading.Thread(target=self.test_start).start()
 
     def shutdownbtn_func(self):
