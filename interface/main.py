@@ -382,7 +382,6 @@ class MainWindow(uiclass, baseclass):
 
             #print(self.testing_mode)
             #if n%20==0:
-            print(s.mode)
 
             if False:
                 self.msleep(100)

@@ -41,9 +41,10 @@ class serial_worker():
 
     KL=KR=ES=HO=CO=LO=0
 
-    def __init__(self, device, rate):
+    def __init__(self, device, rate, spam=True):
         self.dev=device
         self.rate=rate
+        self.spam=spam
         self.ser=serial.Serial(self.dev, self.rate)
         self.simple_commands={
             'read':b'\x02'*4, #команда чтения пакета
@@ -153,7 +154,7 @@ class serial_worker():
                     self.send_bytes(self.send_buffer[0])
                     self.send_buffer=self.send_buffer[1:]
                 await asyncio.sleep(.2)
-                if len(self.send_buffer)==0:
+                if len(self.send_buffer)==0 and self.spam:
                     if self.rezhim_parametrv:
                         if len(self.changed_param.keys())==0:
                             c="pr".encode()+bytes([0])+'00\n\r'.encode()
@@ -218,7 +219,7 @@ class serial_worker():
             self.send_buffer.append(c)
 
 if __name__=="__main__":
-    s=serial_worker("/dev/ttyS3",115200)
+    s=serial_worker("/dev/ttyS3",115200, spam=False)
     while True:
         a=str(input())
         if a=="":
