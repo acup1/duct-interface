@@ -435,11 +435,11 @@ class MainWindow(uiclass, baseclass):
         if self.show_mode==3:self.show_mode=0
 
         if self.show_mode==0:
-            self.maxes.text="Нагрузка"
+            self.maxes.setText("Нагрузка")
         elif self.show_mode==1:
-            self.maxes.text="Макс. нагрузка"
+            self.maxes.setText("Макс. нагрузка")
         elif self.show_mode==2:
-            self.maxes.text="Макс. перемещение"
+            self.maxes.setText("Макс. перемещение")
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
