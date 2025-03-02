@@ -92,6 +92,7 @@ class serial_worker():
                 if data:
                     self.package_crc=(self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1])
                     if self.package_crc:
+                        print("len:", len(data), sep="\t")
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
