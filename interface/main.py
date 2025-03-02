@@ -426,13 +426,20 @@ class MainWindow(uiclass, baseclass):
             await asyncio.sleep(1)
     
     def toggle_values_mode(self):
-        if self.maxes.isChecked():
-            self.show_maxes=True
-        else:
-            self.show_maxes=False
+        #if self.maxes.isChecked():
+        #    self.show_maxes=True
+        #else:
+        #    self.show_maxes=False
+
         self.show_mode+=1
         if self.show_mode==3:self.show_mode=0
-        print(self.maxes.__class__)
+
+        if self.show_mode==0:
+            self.maxes.text="Нагрузка"
+        elif self.show_mode==1:
+            self.maxes.text="Макс. нагрузка"
+        elif self.show_mode==2:
+            self.maxes.text="Макс. перемещение"
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
