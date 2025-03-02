@@ -439,7 +439,7 @@ class MainWindow(uiclass, baseclass):
         elif self.show_mode==1:
             self.maxes.setText("Макс. нагрузка")
         elif self.show_mode==2:
-            self.maxes.setText("Макс. перемещение")
+            self.maxes.setText("Макс.\nперемещение")
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
