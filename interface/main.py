@@ -450,9 +450,9 @@ class MainWindow(uiclass, baseclass):
             self.label_10.setText("Нагрузка 3, Н")
         elif self.show_mode==2:
             self.maxes.setText("Макс.\nперемещение")
-            self.label_5.setText("Перемещение 1, мм")
-            self.label_9.setText("Перемещение 2, мм")
-            self.label_10.setText("Перемещение 3, мм")
+            self.label_5.setText("Перемещение 1,мм")
+            self.label_9.setText("Перемещение 2,мм")
+            self.label_10.setText("Перемещение 3,мм")
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
