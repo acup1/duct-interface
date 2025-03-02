@@ -160,14 +160,15 @@ class serial_worker():
                 if len(self.send_buffer)==0 and self.spam:
                     if self.rezhim_parametrv:
                         if len(self.changed_param.keys())==0:
-                            c="pr".encode()+bytes([0])+'00\n\r'.encode()
+                            c="PR".encode()+bytes([0])+'00\n\r'.encode()
                         else:
-                            c="pr".encode()+bytes([list(self.changed_param.keys())[0]])+'00\n\r'.encode()
+                            c="PR".encode()+bytes([list(self.changed_param.keys())[0]])+'00\n\r'.encode()
                         self.send_bytes(c+self.crc(c))
                     else:
-                        if time()-timer>=.2:
-                            self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
-                            timer=time()
+                        #if time()-timer>=.2:
+                        #    self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
+                        #    timer=time()
+                        s.send_command('read\x0a\x0d\x00')
             except Exception as e:
                 print(e)
                 self.ser=serial.Serial(self.dev, self.rate)
@@ -233,6 +234,7 @@ q    exit                        ┃
 2    stop                        ┃
 3    normal                      ┃
 4    params                      ┃
+pw N NUM                         ┃
 ввод любой команды или её начала ┃
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
     ''')
@@ -246,13 +248,16 @@ q    exit                        ┃
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
             print("mode:",s.mode, sep="\t")
-            print("x:",s.x, sep="\t")
-            print("d1:",s.d1, sep="\t")
-            print("d2:",s.d2, sep="\t")
-            print("d3:",s.d3, sep="\t")
-            print("max d1:",s.md1, sep="\t")
-            print("max d2:",s.md2, sep="\t")
-            print("max d3:",s.md3, sep="\t")
+            if s.mode!=7:
+                print("x:",s.x, sep="\t")
+                print("d1:",s.d1, sep="\t")
+                print("d2:",s.d2, sep="\t")
+                print("d3:",s.d3, sep="\t")
+                print("max d1:",s.md1, sep="\t")
+                print("max d2:",s.md2, sep="\t")
+                print("max d3:",s.md3, sep="\t")
+            else:
+                pass
 
         elif a=="1":
             s.send_command('STA____')
