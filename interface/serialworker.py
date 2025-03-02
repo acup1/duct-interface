@@ -1,5 +1,5 @@
 import serial
-from time import time
+from time import time,sleep
 import asyncio
 import threading
 import struct
