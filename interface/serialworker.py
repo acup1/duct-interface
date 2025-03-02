@@ -46,6 +46,7 @@ class serial_worker():
         self.dev=device
         self.rate=rate
         self.spam=spam
+        self.err_count=0
         self.Running=True
         self.package_crc=False
         self.ser=serial.Serial(self.dev, self.rate)
@@ -93,6 +94,7 @@ class serial_worker():
                 if data:
                     self.package_crc=(self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1])
                     if self.package_crc:
+                        self.err_count=0
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
@@ -152,7 +154,8 @@ class serial_worker():
                                 #print("param:")
                                 #print(self.parameter_number,self.parameter_value)
                     else:
-                        print("crc err")
+                        self.err_count+=1
+                        print("crc err", self.err_count)
                         print(data)
 
                 if len(self.send_buffer)>0:
