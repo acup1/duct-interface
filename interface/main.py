@@ -19,6 +19,7 @@ from QThreadRender import render as qupdater
 from setupwindow import setupwindow
 from PyQt5.QtCore import QTimer
 from exlambda import exlambda
+import traceback
 
 s=serial_worker("/dev/ttyS3",115200)
 
@@ -394,7 +395,7 @@ class MainWindow(uiclass, baseclass):
             #sleep(0.1)
             #self.iteration_finished.emit()
         except Exception as err: 
-            print(err)
+            traceback.print_exc()
 
     def focusInEvent(self, event):
         print('Got focus')
