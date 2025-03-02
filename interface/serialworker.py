@@ -45,6 +45,7 @@ class serial_worker():
         self.dev=device
         self.rate=rate
         self.spam=spam
+        self.Running=True
         self.package_crc=False
         self.ser=serial.Serial(self.dev, self.rate)
         self.simple_commands={
@@ -85,7 +86,7 @@ class serial_worker():
 
     async def read_serial_data(self):
         timer=time()
-        while True:
+        while self.Running:
             try:
                 data = self.ser.read_all()
                 if data:
@@ -235,6 +236,7 @@ q\texit
     while True:
         a=str(input("cmd: "))
         if a=="q":
+            s.Running=False
             break
         elif a=="":
             s.send_command('read\x0a\x0d\x00')
