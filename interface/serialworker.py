@@ -243,7 +243,7 @@ q    exit                        ┃
 2    stop                        ┃
 3    normal                      ┃
 4    params                      ┃
-pw N NUM                         ┃
+pr N read param                  ┃
 ввод любой команды или её начала ┃
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
     ''')
@@ -265,8 +265,11 @@ pw N NUM                         ┃
                 print("max d1:",s.md1, sep="\t")
                 print("max d2:",s.md2, sep="\t")
                 print("max d3:",s.md3, sep="\t")
+                print("time:",s.time, sep="\t")
+                print("temp:",s.temp, sep="\t")
             else:
-                pass
+                print("N:",s.parameter_number, sep="\t")
+                print("val:",s.parameter_value, sep="\t")
 
         elif a=="1":
             s.send_command('STA____')
@@ -286,6 +289,12 @@ pw N NUM                         ┃
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
             print("mode:",s.mode, sep="\t")
+        elif ("pr" in a) and len(a.split())==2:
+            s.read_param(int(a.split()[1]))
+            sleep(.1)
+            print("crc:",s.package_crc, sep="\t")
+            print("N:",s.parameter_number, sep="\t")
+            print("val:",s.parameter_value, sep="\t")
         else:
             s.send_command((a+7*"_")[:7])
             sleep(.1)

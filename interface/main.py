@@ -328,49 +328,49 @@ class MainWindow(uiclass, baseclass):
                 else:self.turn_off_testing_led()
 
 
-            
-            if len(s.bd1)>0:
-                y1=s.bd1[-1]
-                if y1>0.01*300 and self.k["d1"][0]!=1:self.k["d1"][0]=1
-                if y1>0.1*300 and self.k["d1"][2]!=1:self.k["d1"][2]=1
-                if y1<0.01*300 and self.k["d1"][2]==1:self.k["d1"][3]=1
-            
-            if len(s.bd2)>0:
-                y2=s.bd2[-1]
-                if y2>0.01*300 and self.k["d2"][0]!=1:self.k["d2"][0]=1
-                if y2>0.1*300 and self.k["d2"][2]!=1:self.k["d2"][2]=1
-                if y2<0.01*300 and self.k["d2"][2]==1:self.k["d2"][3]=1
-
-            if len(s.bd3)>0:
-                y3=s.bd3[-1]
-                if y3>0.01*300 and self.k["d3"][0]!=1:self.k["d3"][0]=1
-                if y3>0.1*300 and self.k["d3"][2]!=1:self.k["d3"][2]=1
-                if y3<0.01*300 and self.k["d3"][2]==1:self.k["d3"][3]=1
-
-            
-            if len(s.bx)>0 and int(s.time)>=30:
-                dx=s.bx[-1]-s.bx[-2]
-                if dx!=0:
-                    dy1=y1-s.bd1[-2]
-                    dy2=y2-s.bd2[-2]
-                    dy3=y3-s.bd3[-2]
-                    k1=dy1/dx
-                    k2=dy2/dx
-                    k3=dy3/dx
-                    if k1<=-10 and self.k["d1"][1]!=1 and self.k["d1"][0]==1:self.k["d1"][1]=1
-                    if k2<=-10 and self.k["d2"][1]!=1 and self.k["d2"][0]==1:self.k["d2"][1]=1
-                    if k3<=-10 and self.k["d3"][1]!=1 and self.k["d3"][0]==1:self.k["d3"][1]=1
-
-            if sum(self.k["d1"][0:2])==2 or sum(self.k["d1"][2:4])==2:
-                self.can_draw_d1=False
+            if self.testing_mode:
+                if len(s.bd1)>0:
+                    y1=s.bd1[-1]
+                    if y1>0.01*300 and self.k["d1"][0]!=1:self.k["d1"][0]=1
+                    if y1>0.1*300 and self.k["d1"][2]!=1:self.k["d1"][2]=1
+                    if y1<0.01*300 and self.k["d1"][2]==1:self.k["d1"][3]=1
                 
-                #print("stop 1",sum(self.k["d1"][0:2])==2,sum(self.k["d1"][2:4])==2)
-            if sum(self.k["d2"][0:2])==2 or sum(self.k["d2"][2:4])==2:
-                self.can_draw_d2=False
+                if len(s.bd2)>0:
+                    y2=s.bd2[-1]
+                    if y2>0.01*300 and self.k["d2"][0]!=1:self.k["d2"][0]=1
+                    if y2>0.1*300 and self.k["d2"][2]!=1:self.k["d2"][2]=1
+                    if y2<0.01*300 and self.k["d2"][2]==1:self.k["d2"][3]=1
 
-                #print("stop 2",sum(self.k["d2"][0:2])==2,sum(self.k["d2"][2:4])==2)
-            if sum(self.k["d3"][0:2])==2 or sum(self.k["d3"][2:4])==2:
-                self.can_draw_d3=False
+                if len(s.bd3)>0:
+                    y3=s.bd3[-1]
+                    if y3>0.01*300 and self.k["d3"][0]!=1:self.k["d3"][0]=1
+                    if y3>0.1*300 and self.k["d3"][2]!=1:self.k["d3"][2]=1
+                    if y3<0.01*300 and self.k["d3"][2]==1:self.k["d3"][3]=1
+
+                
+                if len(s.bx)>0 and int(s.time)>=30:
+                    dx=s.bx[-1]-s.bx[-2]
+                    if dx!=0:
+                        dy1=y1-s.bd1[-2]
+                        dy2=y2-s.bd2[-2]
+                        dy3=y3-s.bd3[-2]
+                        k1=dy1/dx
+                        k2=dy2/dx
+                        k3=dy3/dx
+                        if k1<=-10 and self.k["d1"][1]!=1 and self.k["d1"][0]==1:self.k["d1"][1]=1
+                        if k2<=-10 and self.k["d2"][1]!=1 and self.k["d2"][0]==1:self.k["d2"][1]=1
+                        if k3<=-10 and self.k["d3"][1]!=1 and self.k["d3"][0]==1:self.k["d3"][1]=1
+
+                if sum(self.k["d1"][0:2])==2 or sum(self.k["d1"][2:4])==2:
+                    self.can_draw_d1=False
+                    
+                    #print("stop 1",sum(self.k["d1"][0:2])==2,sum(self.k["d1"][2:4])==2)
+                if sum(self.k["d2"][0:2])==2 or sum(self.k["d2"][2:4])==2:
+                    self.can_draw_d2=False
+
+                    #print("stop 2",sum(self.k["d2"][0:2])==2,sum(self.k["d2"][2:4])==2)
+                if sum(self.k["d3"][0:2])==2 or sum(self.k["d3"][2:4])==2:
+                    self.can_draw_d3=False
 
                 #print("stop 3",sum(self.k["d3"][0:2])==2,sum(self.k["d3"][2:4])==2)
             #print(*self.k["d1"])
