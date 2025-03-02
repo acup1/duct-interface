@@ -157,6 +157,7 @@ class serial_worker():
                         self.err_count+=1
                         print("crc err", self.err_count)
                         print(data)
+                        print()
 
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
@@ -206,7 +207,7 @@ class serial_worker():
 
     def read_param(self,n):
         #self.zapros_parameter_number=n
-        self.send_command((b"pr"+bytes([n])+b'00\n\r'))
+        self.send_command((b"PR"+bytes([n])+b'00\n\r'))
 
     def send_bytes(self,b):
         self.ser.write(b)

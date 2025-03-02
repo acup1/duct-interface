@@ -13,6 +13,7 @@ from QThreadRender import render as qupdater
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import QTimer
 from clickeditems import CQLineEdit
+from time import sleep
 
 def sfpc():
     global passwords
@@ -184,6 +185,7 @@ class setupwindow(*loadUiType("set.ui")):
                     self.s.read_param(n)
                     if int(self.s.parameter_number)==n:
                         v=self.s.parameter_value
+                    sleep(0.2)
                 
                 if int(row["variability"]):
                     e=CQLineEdit(str(v))
