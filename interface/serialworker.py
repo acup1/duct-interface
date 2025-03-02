@@ -5,6 +5,7 @@ import threading
 import struct
 from crccheck.crc import Crc16Modbus as c16
 from crccheck.crc import Crc8MaximDow as c8
+import traceback
 
 def dw2float(dw_array):
     dw_array=[byte for byte in dw_array]
@@ -168,9 +169,9 @@ class serial_worker():
                         #if time()-timer>=.2:
                         #    self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
                         #    timer=time()
-                        s.send_command('read\x0a\x0d\x00')
+                        123self.send_command('read\x0a\x0d\x00')
             except Exception as e:
-                print(e)
+                traceback.print_exc()
                 self.ser=serial.Serial(self.dev, self.rate)
 
 
