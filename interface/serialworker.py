@@ -153,6 +153,7 @@ class serial_worker():
                                 #print(self.parameter_number,self.parameter_value)
                     else:
                         print("crc err")
+                        print(data)
 
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
