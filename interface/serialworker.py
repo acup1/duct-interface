@@ -241,13 +241,18 @@ q\texit
         elif a=="":
             s.send_command('read\x0a\x0d\x00')
             sleep(.1)
-            print("crc:",s.package_crc)
+            print("crc:",s.package_crc, sep="\t")
         elif a=="1":
-            s.send_command('sta0000')
+            s.send_command('STA____')
             sleep(.1)
-            print("crc:",s.package_crc)
+            print("crc:",s.package_crc, sep="\t")
         elif a=="2":
-            s.send_command('sto0000')
+            s.send_command('STO____')
             sleep(.1)
-            print("crc:",s.package_crc)
+            print("crc:",s.package_crc, sep="\t")
+        elif a=="3":
+            s.send_command('SE_N___')
+            sleep(.1)
+            print("crc:",s.package_crc, sep="\t")
+            print("mode:",s.mode, sep="\t")
         print()
