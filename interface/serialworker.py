@@ -169,7 +169,7 @@ class serial_worker():
                         #if time()-timer>=.2:
                         #    self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
                         #    timer=time()
-                        s.send_command('read\x0a\x0d\x00')
+                        self.send_command('read\x0a\x0d\x00')
             except Exception as e:
                 traceback.print_exc()
                 self.ser=serial.Serial(self.dev, self.rate)
