@@ -227,8 +227,8 @@ if __name__=="__main__":
         if a=="":
             s.send_command('read\x0a\x0d\x00')
             sleep(.1)
-            print(s.package_crc)
+            print("crc:",s.package_crc)
         elif a=="1":
             s.send_command('start\x0a\x0d')
             sleep(.1)
-            print(s.package_crc)
+            print("crc:",s.package_crc)
