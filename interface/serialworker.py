@@ -219,4 +219,7 @@ class serial_worker():
 
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200)
-    s.send_param(1,1)
+    while True:
+        a=str(input())
+        if a=="":
+            s.send_command('read\x0a\x0d\x00')
