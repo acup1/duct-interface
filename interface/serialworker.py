@@ -250,3 +250,4 @@ q\texit
             s.send_command('sto0000')
             sleep(.1)
             print("crc:",s.package_crc)
+        print()
