@@ -45,6 +45,7 @@ class serial_worker():
         self.dev=device
         self.rate=rate
         self.spam=spam
+        self.package_crc=False
         self.ser=serial.Serial(self.dev, self.rate)
         self.simple_commands={
             'read':b'\x02'*4, #команда чтения пакета
@@ -88,7 +89,8 @@ class serial_worker():
             try:
                 data = self.ser.read_all()
                 if data:
-                    if self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1]:
+                    self.package_crc=(self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1])
+                    if self.package_crc:
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
@@ -224,3 +226,5 @@ if __name__=="__main__":
         a=str(input())
         if a=="":
             s.send_command('read\x0a\x0d\x00')
+            sleep(.1)
+            print(s.package_crc)
