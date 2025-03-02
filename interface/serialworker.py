@@ -226,14 +226,14 @@ if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200, spam=False)
     print('''
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-возможности:                     ┃
-q\texit                          ┃
-↵\tread                          ┃
-1\tstart                         ┃
-2\tstop                          ┃
-3\tnormal                        ┃
-4\tparams                        ┃
-ввод любой команды или её начала ┃
+возможности:                     |
+q\texit                          |
+↵\tread                          |
+1\tstart                         |
+2\tstop                          |
+3\tnormal                        |
+4\tparams                        |
+ввод любой команды или её начала |
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
     ''')
     while True:
