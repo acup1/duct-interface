@@ -290,8 +290,10 @@ pr N read param                  ┃
             print("crc:",s.package_crc, sep="\t")
             print("mode:",s.mode, sep="\t")
         elif ("pr" in a) and len(a.split())==2:
-            s.read_param(int(a.split()[1]))
+            n=int(a.split()[1])
+            s.read_param(n)
             sleep(.1)
+            while s.parameter_number!=n:pass
             print("crc:",s.package_crc, sep="\t")
             print("N:",s.parameter_number, sep="\t")
             print("val:",s.parameter_value, sep="\t")
