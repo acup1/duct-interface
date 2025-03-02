@@ -331,7 +331,11 @@ class MainWindow(uiclass, baseclass):
                     self.lcd2.display(f"{float(s.md2):.2f}")
                     self.lcd3.display(f"{float(s.md3):.2f}")
                 elif self.show_mode==2:
-                    pass
+                    #try:   self.lcd1.display(f"{float(s.md1):.2f}")
+                    #except:self.lcd1.display(f"{float(0):.2f}")
+                    self.lcd1.display(f"{float(0):.2f}")
+                    self.lcd2.display(f"{float(0):.2f}")
+                    self.lcd3.display(f"{float(0):.2f}")
                 
             except:
                 pass
@@ -436,10 +440,19 @@ class MainWindow(uiclass, baseclass):
 
         if self.show_mode==0:
             self.maxes.setText("Нагрузка")
+            self.label_5.setText("Нагрузка 1, Н")
+            self.label_9.setText("Нагрузка 2, Н")
+            self.label_10.setText("Нагрузка 3, Н")
         elif self.show_mode==1:
-            self.maxes.setText("Макс. нагрузка")
+            self.maxes.setText("Макс.\nнагрузка")
+            self.label_5.setText("Нагрузка 1, Н")
+            self.label_9.setText("Нагрузка 2, Н")
+            self.label_10.setText("Нагрузка 3, Н")
         elif self.show_mode==2:
             self.maxes.setText("Макс.\nперемещение")
+            self.label_5.setText("Перемещение 1, мм")
+            self.label_9.setText("Перемещение 2, мм")
+            self.label_10.setText("Перемещение 3, мм")
 
     def openkeyboard(self):
         self.keyboardbtn.setEnabled(False)
