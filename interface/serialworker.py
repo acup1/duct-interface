@@ -70,7 +70,7 @@ class serial_worker():
         self.bd1=[]
         self.bd2=[]
         self.bd3=[]
-        self.send_command("setnr\x0a\x0d")
+        self.send_command("SETNR\x0a\x0d")
 
     def clear_buffer(self):
         self.bx=[]
@@ -174,7 +174,7 @@ class serial_worker():
                         #if time()-timer>=.2:
                         #    self.send_bytes('read\x0a\x0d\x00'.encode("ASCII")+self.crc('read\x0a\x0d\x00'))
                         #    timer=time()
-                        self.send_command('read\x0a\x0d\x00')
+                        self.send_command('READ\x0a\x0d\x00')
             except Exception as e:
                 traceback.print_exc()
                 self.ser=serial.Serial(self.dev, self.rate)
@@ -203,7 +203,7 @@ class serial_worker():
     def send_param(self,n,x):
         #print(b"pw"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d")
         self.changed_param[n]=[x,0]
-        self.send_command((b"pw"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d"))
+        self.send_command((b"PW"+bytes([n])+self.numtobytes(x)+b"\x0a\x0d"))
 
     def read_param(self,n):
         #self.zapros_parameter_number=n
