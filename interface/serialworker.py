@@ -223,7 +223,8 @@ class serial_worker():
 
     def send_command(self,command):
         try:
-            print("sended:",command.encode("ASCII"))
+            if not(self.spam):
+                print("sended:",command.encode("ASCII"))
         except:pass
 
         if str(type(command))=="<class 'bytes'>":pass

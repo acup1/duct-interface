@@ -146,7 +146,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <string notr="true">background-color: none;</string>
     </property>
     <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+     <enum>Qt::Orientation::Horizontal</enum>
     </property>
    </widget>
    <widget class="Line" name="line_5">
@@ -162,7 +162,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <string notr="true">background-color: none;</string>
     </property>
     <property name="orientation">
-     <enum>Qt::Vertical</enum>
+     <enum>Qt::Orientation::Vertical</enum>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -181,7 +181,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
         <number>0</number>
        </property>
        <property name="sizeConstraint">
-        <enum>QLayout::SetMaximumSize</enum>
+        <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
        </property>
        <item>
         <widget class="QPushButton" name="maxes">
@@ -206,13 +206,13 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           </font>
          </property>
          <property name="text">
-          <string>Макс.</string>
+          <string>Нагрузка</string>
          </property>
          <property name="checkable">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="checked">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -222,7 +222,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_5">
@@ -257,7 +257,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd1">
@@ -307,7 +307,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_9">
@@ -342,7 +342,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd2">
@@ -392,7 +392,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_10">
@@ -427,7 +427,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd3">
@@ -477,7 +477,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_11">
@@ -512,7 +512,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd4">
@@ -562,7 +562,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_12">
@@ -597,7 +597,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd5">
@@ -628,7 +628,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
           <number>0</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
          </property>
          <item>
           <widget class="QLabel" name="label_13">
@@ -663,7 +663,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <number>0</number>
            </property>
            <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
+            <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
            </property>
            <item>
             <widget class="QLCDNumber" name="lcd6">
@@ -691,7 +691,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -706,7 +706,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <property name="sizeConstraint">
-        <enum>QLayout::SetMaximumSize</enum>
+        <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
        </property>
        <item>
         <widget class="QWidget" name="zatichka" native="true">
@@ -748,7 +748,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="sizeConstraint">
-        <enum>QLayout::SetMaximumSize</enum>
+        <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
        </property>
        <item>
         <widget class="QPushButton" name="settings">
@@ -791,7 +791,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -819,7 +819,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
       <number>9</number>
      </property>
      <property name="sizeConstraint">
-      <enum>QLayout::SetMinimumSize</enum>
+      <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
      </property>
      <item>
       <widget class="QPushButton" name="leftleft">
@@ -919,7 +919,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -970,7 +970,7 @@ color: red;</string>
       <number>0</number>
      </property>
      <property name="sizeConstraint">
-      <enum>QLayout::SetMinimumSize</enum>
+      <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
      </property>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -978,7 +978,7 @@ color: red;</string>
         <number>0</number>
        </property>
        <property name="sizeConstraint">
-        <enum>QLayout::SetMinimumSize</enum>
+        <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
        </property>
        <item>
         <widget class="QLabel" name="testing">
@@ -1041,7 +1041,7 @@ color: red;</string>
         <number>0</number>
        </property>
        <property name="sizeConstraint">
-        <enum>QLayout::SetMinimumSize</enum>
+        <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
        </property>
       </layout>
      </item>
@@ -1060,7 +1060,7 @@ color: red;</string>
         </size>
        </property>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -1105,7 +1105,7 @@ color: red;</string>
      <item>
       <spacer name="verticalSpacer_3">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Orientation::Vertical</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -1147,10 +1147,10 @@ color: red;</string>
      <bool>false</bool>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
+     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
     </property>
     <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustToContents</enum>
+     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
     </property>
     <property name="widgetResizable">
      <bool>true</bool>
@@ -1160,7 +1160,7 @@ color: red;</string>
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>722</width>
+       <width>729</width>
        <height>429</height>
       </rect>
      </property>
@@ -1194,7 +1194,7 @@ color: red;</string>
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -1245,7 +1245,7 @@ color: red;</string>
           <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -1263,7 +1263,7 @@ color: red;</string>
            <number>0</number>
           </property>
           <property name="sizeConstraint">
-           <enum>QLayout::SetMaximumSize</enum>
+           <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
           </property>
           <item>
            <widget class="QLabel" name="label_2">
@@ -1321,7 +1321,7 @@ color: red;</string>
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -1336,7 +1336,7 @@ color: red;</string>
         <item>
          <spacer name="verticalSpacer_4">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Orientation::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>

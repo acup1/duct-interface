@@ -44,6 +44,7 @@ class MainWindow(uiclass, baseclass):
     testing_mode=False
     testing_counter=0
     show_maxes=True
+    show_mode=0
     finale_data={
         'd1':{
             "x":[],
@@ -216,6 +217,7 @@ class MainWindow(uiclass, baseclass):
 
         self.maxes.clicked.connect(self.toggle_values_mode)
 
+
         #SETTINGS
         self.setting_canvas.hide()
         
@@ -311,14 +313,26 @@ class MainWindow(uiclass, baseclass):
                 #print(int(k1),int(k2),int(k3))
             
             try:
-                if self.show_maxes:
-                    self.lcd1.display(f"{float(s.md1):.2f}")
-                    self.lcd2.display(f"{float(s.md2):.2f}")
-                    self.lcd3.display(f"{float(s.md3):.2f}")
-                else:
+                #if self.show_maxes:
+                #    self.lcd1.display(f"{float(s.md1):.2f}")
+                #    self.lcd2.display(f"{float(s.md2):.2f}")
+                #    self.lcd3.display(f"{float(s.md3):.2f}")
+                #else:
+                #    self.lcd1.display(f"{float(s.d1):.2f}")
+                #    self.lcd2.display(f"{float(s.d2):.2f}")
+                #    self.lcd3.display(f"{float(s.d3):.2f}")
+
+                if self.show_mode==0:
                     self.lcd1.display(f"{float(s.d1):.2f}")
                     self.lcd2.display(f"{float(s.d2):.2f}")
                     self.lcd3.display(f"{float(s.d3):.2f}")
+                elif self.show_mode==1:
+                    self.lcd1.display(f"{float(s.md1):.2f}")
+                    self.lcd2.display(f"{float(s.md2):.2f}")
+                    self.lcd3.display(f"{float(s.md3):.2f}")
+                elif self.show_mode==2:
+                    pass
+                
             except:
                 pass
             
@@ -416,6 +430,8 @@ class MainWindow(uiclass, baseclass):
             self.show_maxes=True
         else:
             self.show_maxes=False
+        self.show_mode+=1
+        if self.show_mode==3:self.show_mode=0
         print(self.maxes.__class__)
 
     def openkeyboard(self):
