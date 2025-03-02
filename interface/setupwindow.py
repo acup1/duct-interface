@@ -185,7 +185,7 @@ class setupwindow(*loadUiType("set.ui")):
                     self.s.read_param(n)
                     if int(self.s.parameter_number)==n:
                         v=self.s.parameter_value
-                    sleep(0.2)
+                    #sleep(0.2)
                 
                 if int(row["variability"]):
                     e=CQLineEdit(str(v))

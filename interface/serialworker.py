@@ -253,7 +253,7 @@ pr N read param                  ┃
             s.Running=False
             break
         elif a=="":
-            s.send_command('read\x0a\x0d\x00')
+            s.send_command('READ\x0a\x0d\x00')
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
             print("mode:",s.mode, sep="\t")
