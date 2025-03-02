@@ -225,6 +225,7 @@ class serial_worker():
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200, spam=False)
     print('''
+возможности:
 q\texit
 ↵\tread
 1\tstart
@@ -232,6 +233,7 @@ q\texit
 3\tnormal
 4\tparams
 ввод любой команды или её начала
+--------------------------------
     ''')
     while True:
         a=str(input("cmd: "))
@@ -255,4 +257,13 @@ q\texit
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
             print("mode:",s.mode, sep="\t")
+        elif a=="4":
+            s.send_command('SE_P___')
+            sleep(.1)
+            print("crc:",s.package_crc, sep="\t")
+            print("mode:",s.mode, sep="\t")
+        else:
+            s.send_command((a+7*"_")[:7])
+            sleep(.1)
+            print("crc:",s.package_crc, sep="\t")
         print()
