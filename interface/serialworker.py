@@ -92,7 +92,6 @@ class serial_worker():
                 if data:
                     self.package_crc=(self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1])
                     if self.package_crc:
-                        print("len:", len(data), sep="\t")
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
@@ -246,6 +245,15 @@ q    exit                        ┃
             s.send_command('read\x0a\x0d\x00')
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
+            print("mode:",s.mode, sep="\t")
+            print("x:",s.x, sep="\t")
+            print("d1:",s.d1, sep="\t")
+            print("d2:",s.d2, sep="\t")
+            print("d3:",s.d3, sep="\t")
+            print("max d1:",s.md1, sep="\t")
+            print("max d2:",s.md2, sep="\t")
+            print("max d3:",s.md3, sep="\t")
+
         elif a=="1":
             s.send_command('STA____')
             sleep(.1)
