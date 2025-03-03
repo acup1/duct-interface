@@ -20,6 +20,7 @@ from setupwindow import setupwindow
 from PyQt5.QtCore import QTimer
 from exlambda import exlambda
 import traceback
+import data
 
 s=serial_worker("/dev/ttyS3",115200)
 
@@ -331,11 +332,9 @@ class MainWindow(uiclass, baseclass):
                     self.lcd2.display(f"{float(s.md2):.2f}")
                     self.lcd3.display(f"{float(s.md3):.2f}")
                 elif self.show_mode==2:
-                    #try:   self.lcd1.display(f"{float(s.md1):.2f}")
-                    #except:self.lcd1.display(f"{float(0):.2f}")
-                    self.lcd1.display(f"{float(0):.2f}")
-                    self.lcd2.display(f"{float(0):.2f}")
-                    self.lcd3.display(f"{float(0):.2f}")
+                    self.lcd1.display(f"{float(data.maxX(s.bx,s.bd1,0)):.2f}")
+                    self.lcd2.display(f"{float(data.maxX(s.bx,s.bd2,0)):.2f}")
+                    self.lcd3.display(f"{float(data.maxX(s.bx,s.bd3,0)):.2f}")
                 
             except:
                 pass
