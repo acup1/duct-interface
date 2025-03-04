@@ -124,7 +124,7 @@ class serial_worker():
                             self.LO=1 if int(ds[-6]) else 0
 
                         elif len(data)==30:
-                            self.mode=data[0]
+                            self.mode=data[0]%128
                             if self.mode==7:
                                 ds=("0"*8+bin(int(bytes([data[2]]).hex(),16))[2:])[-8:]
                                 self.KL=1 if int(ds[-1]) else 0
