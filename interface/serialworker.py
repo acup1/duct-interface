@@ -95,13 +95,13 @@ class serial_worker():
                     self.package_crc=(self.crc(data[:-2])==data[-2:] or self.crc(data[:-2])==data[-2:][-1])
                     if self.package_crc:
                         self.err_count=0
+                        self.mode=data[0]%128
                         if len(data)==54:
                             #print("ok")
                             self.x=int(bytes_to_float(data[4:8]))/100
                             self.d1=dw2float(data[8:12])
                             self.d2=dw2float(data[12:16])
                             self.d3=dw2float(data[16:20])
-                            self.mode=data[0]%128
                             if self.mode==5:
                                 self.bx.append(self.x)
                                 self.bd1.append(self.d1)
@@ -124,7 +124,6 @@ class serial_worker():
                             self.LO=1 if int(ds[-6]) else 0
 
                         elif len(data)==30:
-                            self.mode=data[0]%128
                             if self.mode==7:
                                 ds=("0"*8+bin(int(bytes([data[2]]).hex(),16))[2:])[-8:]
                                 self.KL=1 if int(ds[-1]) else 0
