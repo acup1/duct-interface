@@ -162,7 +162,7 @@ class serial_worker():
                 if len(self.send_buffer)>0:
                     self.send_bytes(self.send_buffer[0])
                     self.send_buffer=self.send_buffer[1:]
-                await asyncio.sleep(.2)
+                await asyncio.sleep(.5)
                 if len(self.send_buffer)==0 and self.spam:
                     if self.rezhim_parametrv:
                         if len(self.changed_param.keys())==0:
@@ -235,10 +235,12 @@ class serial_worker():
 
 if __name__=="__main__":
     s=serial_worker("/dev/ttyS3",115200, spam=False)
-    print('''
+    def help():
+        print('''
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 возможности:                     ┃
 q    exit                        ┃
+h    help                        ┃
 ↵    read                        ┃
 1    start                       ┃
 2    stop                        ┃
@@ -247,12 +249,14 @@ q    exit                        ┃
 pr N read param                  ┃
 ввод любой команды или её начала ┃
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-    ''')
+''')
     while True:
         a=str(input("cmd: "))
         if a=="q":
             s.Running=False
             break
+        if a=="h":
+            help()
         elif a=="":
             s.send_command('READ\x0a\x0d\x00')
             sleep(.1)
