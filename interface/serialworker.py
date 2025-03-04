@@ -101,7 +101,7 @@ class serial_worker():
                             self.d1=dw2float(data[8:12])
                             self.d2=dw2float(data[12:16])
                             self.d3=dw2float(data[16:20])
-                            self.mode=data[0]
+                            self.mode=data[0]%128
                             if self.mode==5:
                                 self.bx.append(self.x)
                                 self.bd1.append(self.d1)
@@ -239,17 +239,19 @@ if __name__=="__main__":
         print('''
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 возможности:                     ┃
-q    exit                        ┃
-h    help                        ┃
-↵    read                        ┃
-1    start                       ┃
-2    stop                        ┃
-3    normal                      ┃
-4    params                      ┃
-pr N read param                  ┃
+q            exit                ┃
+h            help                ┃
+↵            read                ┃
+1            start               ┃
+2            stop                ┃
+3            normal              ┃
+4            params              ┃
+pr N         read param          ┃
+pw N VAL     write param         ┃
 ввод любой команды или её начала ┃
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ''')
+    help()
     while True:
         a=str(input("cmd: "))
         if a=="q":
@@ -306,4 +308,4 @@ pr N read param                  ┃
             s.send_command((a+7*"_")[:7])
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
-        print()
+        print()https://github.com/acup1/duct-interface
