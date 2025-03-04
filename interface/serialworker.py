@@ -308,4 +308,4 @@ pw N VAL     write param         ┃
             s.send_command((a+7*"_")[:7])
             sleep(.1)
             print("crc:",s.package_crc, sep="\t")
-        print()https://github.com/acup1/duct-interface
+        print()
