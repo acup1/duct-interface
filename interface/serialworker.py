@@ -51,21 +51,6 @@ class serial_worker():
         self.Running=True
         self.package_crc=False
         self.ser=serial.Serial(self.dev, self.rate)
-        self.simple_commands={
-            'read':b'\x02'*4, #команда чтения пакета
-            'start':b'\x0a'*4, #команда старт
-            'stop':b'\x15'*4, #команда стоп
-            'reset':b'\x20'*4, #команда обнуления
-            'test':b'\x2a'*4, #команда переключ в реж испытания
-            'check':b'\x30'*4, #команда переключ в реж проверка
-            'right':b''*4, #команда движ вправо
-            'left':b''*4, #команда движ влево
-            'warm-on':b''*4, #команда вкл нагрев
-            'warm-off':b''*4, #команда выкл нагрев
-            'cold-on':b''*4, #команда вкл охлад
-            'cold-off':b''*4, #команда выкл охлад
-            #'':b'', #команда
-        }
         self.tasker()
         self.bx=[]
         self.bd1=[]
