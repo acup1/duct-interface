@@ -42,10 +42,11 @@ class serial_worker():
 
     KL=KR=ES=HO=CO=LO=0
 
-    def __init__(self, device, rate, spam=True):
+    def __init__(self, device, rate, spam=True, echo=True):
         self.dev=device
         self.rate=rate
         self.spam=spam
+        self.echo=echo
         self.err_count=0
         self.Running=True
         self.package_crc=False
@@ -222,7 +223,7 @@ class serial_worker():
 
     def send_command(self,command):
         try:
-            if not(self.spam):
+            if self.echo:
                 print("sended:",command.encode("ASCII"))
         except:pass
 
