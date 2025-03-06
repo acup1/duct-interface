@@ -20,7 +20,6 @@ from setupwindow import setupwindow
 from PyQt5.QtCore import QTimer
 from exlambda import exlambda
 import traceback
-import data
 
 s=serial_worker("/dev/ttyS3",115200)
 
@@ -42,6 +41,11 @@ class MainWindow(uiclass, baseclass):
     can_draw_d1=True
     can_draw_d2=True
     can_draw_d3=True
+    maxx={
+        "d1":0,
+        "d2":0,
+        "d3":0,
+          }
     testing_mode=False
     testing_counter=0
     show_maxes=True
@@ -332,10 +336,9 @@ class MainWindow(uiclass, baseclass):
                     self.lcd2.display(f"{float(s.md2):.2f}")
                     self.lcd3.display(f"{float(s.md3):.2f}")
                 elif self.show_mode==2:
-                    self.lcd1.display(f"{float(data.maxX(s.bx,s.bd1,0)):.2f}")
-                    self.lcd2.display(f"{float(data.maxX(s.bx,s.bd2,0)):.2f}")
-                    self.lcd3.display(f"{float(data.maxX(s.bx,s.bd3,0)):.2f}")
-                
+                    self.lcd1.display(f"{float(maxx["d1"]):.2f}")
+                    self.lcd2.display(f"{float(maxx["d2"]):.2f}")
+                    self.lcd3.display(f"{float(maxx["d3"]):.2f}")
             except:
                 pass
             
@@ -380,14 +383,17 @@ class MainWindow(uiclass, baseclass):
 
                 if sum(self.k["d1"][0:2])==2 or sum(self.k["d1"][2:4])==2:
                     self.can_draw_d1=False
+                    self.maxx["d1"]=s.x
                     
                     #print("stop 1",sum(self.k["d1"][0:2])==2,sum(self.k["d1"][2:4])==2)
                 if sum(self.k["d2"][0:2])==2 or sum(self.k["d2"][2:4])==2:
                     self.can_draw_d2=False
+                    self.maxx["d2"]=s.x
 
                     #print("stop 2",sum(self.k["d2"][0:2])==2,sum(self.k["d2"][2:4])==2)
                 if sum(self.k["d3"][0:2])==2 or sum(self.k["d3"][2:4])==2:
                     self.can_draw_d3=False
+                    self.maxx["d3"]=s.x
 
                 #print("stop 3",sum(self.k["d3"][0:2])==2,sum(self.k["d3"][2:4])==2)
             #print(*self.k["d1"])
