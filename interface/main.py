@@ -29,6 +29,9 @@ pg.setConfigOption('foreground', 'k')
 
 uiclass, baseclass = pg.Qt.loadUiType("mainwindow.ui")
 
+
+#blkid /dev/sda1 -s UUID -o value
+
 def frange(x, y, jump):
     while x < y:
         yield x
